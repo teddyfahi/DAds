@@ -26,7 +26,7 @@ Favorites are stored locally using UserDefaults. Note that there are some potent
 
 Screenshots (iPhone 12) simulator:
 
-![screens](https://github.com/teddyfahi/DAds/blob/main/Screenshots/screens.png)
+![screens](https://github.com/teddyfahi/DAds/blob/main/screens.png)
   
 ### Before getting into coding
 
@@ -92,11 +92,11 @@ When creating a new project I chose not to include Core Data simply because of t
 
 ### Regarding testing:
 
-Due to time no automated tests have been written. The only unit- and ui-tests that have been run are the generic XCT tests added when adding a test-target to Xcode projects. The app is run and manually testet on simulator (iPhone 12 and iPhone 14Pro) and physical device (iPhone 13). Offline mode is tested on all devices, and loads list of favourites as expected but there are no other considerations of offline-mode regarding rendering of content. The app is run using VoiceOver on device and using Xcode Accessibility Inspector on simulator, to assure universal design. Some potential improvements where discovered to meet WCAG 2.1 dements, such as contrast, zoom and descriptions.
+Almost only unit- and ui-tests that have been run are the generic XCT tests generated when adding a test-target to Xcode projects. Very few automated tests have been written. The app is run and manually testet on simulator (iPhone 12 and iPhone 14Pro) and physical device (iPhone 13). Offline mode is tested on all devices, and loads list of favourites as expected but there are no other considerations of offline-mode regarding rendering of content. The app is run using VoiceOver on device and using Xcode Accessibility Inspector on simulator, to assure universal design. Some potential improvements where discovered to meet WCAG 2.1 dements, such as contrast, zoom and descriptions.
 
 ### Further development:
 
-There are a bunch of tasks of which DAds would benefit from being developed. When deciding which features to deliver, there is a natural balance of what is most important for the client, and what are the low hanging fruits. Here are some thoughts on low-hanging fruits for the future:
+First of all, the project does contain code that would benefit from refactoring. An example is very similar views of rendering content of each of the two tabs (.All and .Favorites). In addition, there are a bunch of tasks to take on for further development. Here are some thoughts on low-hanging fruits for the future:
 
 -   Calculate route. This requires lot- and lat- properties of the dataset thought and a location manager.
 - The product landing page could be thicker if the backend included some more data points, such as multiple images for instance

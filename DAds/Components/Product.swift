@@ -11,6 +11,7 @@ struct Product: View {
     @StateObject private var favorites = Favorites()
     @StateObject private var globals = Globals()
     @StateObject private var vm = ProductViewModel()
+    @State var isProductCard = false
     
     var productImage: String
     var price: Int
@@ -18,50 +19,20 @@ struct Product: View {
     var location: String?
     var shippingOption: String?
     var adType: String
-
+    
     var body: some View {
         VStack {
             VStack(alignment: .center, spacing: 16.0) {
                 if shippingOption != nil {
-                    HStack {
-                        HStack {
-                            Image(systemName: "hare").imageScale(.medium)
-                            Text(shippingOption!)
-                        }.padding(6).background(.yellow.opacity(0.2)).clipShape(RoundedRectangle(cornerRadius: 6.0))
-                        Spacer()
-                    }.foregroundColor(globals.cardLight)
+                    ShippingOptionView(shippingOption: shippingOption!)
                 }
-     
-                AsyncImage(url: URL(string: productImage), scale: 3) { phase in
-                    if let image = phase.image {
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .clipShape(Circle())
-                            .frame(width: 300)
-                            .padding()
-                    }
-                    else if phase.error != nil {
-                        Image(systemName: "mustache").font(.system(size: 60)).foregroundColor(globals.cardLight)
-                            .frame(width: 120)
-                            .padding(20)
-                    }
-                }
-                HStack(spacing: 4.0) {
-                    if adType == "REALESTATE" {
-                        Image(systemName: "house").imageScale(.medium).foregroundColor(globals.cardLight)
-                    } else {
-                        Image(systemName: "location.circle").imageScale(.medium).foregroundColor(globals.cardLight)
-                    }
-                    Text(location ?? "No location available")
-                }.foregroundColor(globals.cardLight)
-                    .padding(.bottom, 16)
+                ImageLoader(isProductCard: $isProductCard, productImage: productImage)
+                AdTypeView(adType: adType, location: location).foregroundColor(globals.cardLight).padding(.bottom, 16)
             }
             .frame(width: 300)
             .background(globals.cardDark)
             .clipShape(RoundedRectangle(cornerRadius: 24.0))
             .shadow(radius: 2)
-            
         }.padding()
         VStack {
             Text(vm.priceStringFromInt(price) ?? "No price available")

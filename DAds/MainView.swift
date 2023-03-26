@@ -9,9 +9,8 @@ import SwiftUI
 
 
 struct MainView: View {
-    @EnvironmentObject private var globals: Globals
     @EnvironmentObject private var repository: Repository
-    
+    @StateObject var globals = Globals()
     @StateObject var favorites = Favorites()
     @StateObject private var vm = MainViewModel()
     
@@ -36,7 +35,7 @@ struct MainView: View {
                 adsList
             case .Favorites:
                 if favorites.ads.count == 0 {
-                    EmptyView()
+                    EmptyView().environmentObject(globals)
                 } else {
                     favsList
                 }
@@ -44,6 +43,7 @@ struct MainView: View {
         }.refreshable { await repository.loadData() }
     }
     
+    // MARK: - List of all ads
     var adsList: some View {
         LazyVStack {
             ForEach(filteredAdItems, id: \.id) { item in
@@ -60,6 +60,7 @@ struct MainView: View {
         }
     }
     
+    // MARK: - Filtered list of only favorite ads
     var favsList: some View {
         ForEach(filteredAdItems, id: \.id) { item in
             if favorites.contains(item) {
