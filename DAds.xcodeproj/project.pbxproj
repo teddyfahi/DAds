@@ -132,7 +132,7 @@
 				6AF3410729CC56F3006B3681 /* MainView.swift */,
 				6AF3413D29CF6AE9006B3681 /* ProductView.swift */,
 				6AF3414129CF6E22006B3681 /* ProductViewModel.swift */,
-				6AF3413929CF3EC5006B3681 /* Preview Content */,
+				6AF5CC1929D0D6C400B00D23 /* Preview Content */,
 				6AF3412129CCBABD006B3681 /* Utils */,
 				6AF3412C29CEF299006B3681 /* Info.plist */,
 			);
@@ -176,13 +176,6 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		6AF3413929CF3EC5006B3681 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		6AF5CBFB29D0AAE400B00D23 /* DAdsUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +190,13 @@
 				6AF5CC0B29D0AAEF00B00D23 /* DAdsTests.swift */,
 			);
 			path = DAdsTests;
+			sourceTree = "<group>";
+		};
+		6AF5CC1929D0D6C400B00D23 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
