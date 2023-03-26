@@ -7,17 +7,14 @@
 
 import Foundation
 
-//extension MainView {
+final class MainViewModel: ObservableObject {
     
-    final class MainViewModel: ObservableObject {
-
-        @Published var imageBaseUrl: String = "https://images.finncdn.no/dynamic/480x360c/"
-        @Published var searchText = ""
-        @Published var selectedTab : Tabs = .All
-        
-        enum Tabs : String, CaseIterable {
-            case All = "Everything"
-            case Favorites = "Favorites"
-        }
-   // }
+    @Published var imageBaseUrl: String = "https://images.finncdn.no/dynamic/480x360c/"
+    @Published var searchText = ""
+    @Published var selectedTab : Tabs = .All
+    
+    enum Tabs : String, CaseIterable {
+        case All = "Everything"
+        case Favorites = "Favorites"
+    }
 }

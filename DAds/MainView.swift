@@ -24,7 +24,6 @@ struct MainView: View {
         return repository.items
     }
     
-    
     var body: some View {
         Picker("", selection: $vm.selectedTab) {
             ForEach(MainViewModel.Tabs.allCases, id: \.self) { option in
@@ -50,8 +49,6 @@ struct MainView: View {
             ForEach(filteredAdItems, id: \.id) { item in
                 NavigationLink(destination: ProductView(item: item, vm: vm, favorites: favorites).environmentObject(self.repository)) {
                     ZStack(alignment: .top) {
-                        //TODO: default price should be nothing
-                        // create url other place?
                         ProductCard(productImage:  "\(vm.imageBaseUrl)\(item.image?.url ?? "")", price: item.price?.value ?? 0, description: item.description ?? "", location: item.location ?? "", adType: item.adType.rawValue)
                         HStack {
                             Spacer()
@@ -67,7 +64,6 @@ struct MainView: View {
         ForEach(filteredAdItems, id: \.id) { item in
             if favorites.contains(item) {
                 ZStack(alignment: .top) {
-                    //TODO: default price should be nothing
                     ProductCard(productImage:  "\(vm.imageBaseUrl)\(item.image?.url ?? "")", price: item.price?.value ?? 0, description: item.description ?? "", location: item.location ?? "", adType: item.adType.rawValue)
                     HStack {
                         Spacer()

@@ -10,6 +10,7 @@ import SwiftUI
 struct Product: View {
     @StateObject private var favorites = Favorites()
     @StateObject private var globals = Globals()
+    @StateObject private var vm = ProductViewModel()
     
     var productImage: String
     var price: Int
@@ -17,7 +18,7 @@ struct Product: View {
     var location: String?
     var shippingOption: String?
     var adType: String
-   
+
     var body: some View {
         VStack {
             VStack(alignment: .center, spacing: 16.0) {
@@ -30,6 +31,7 @@ struct Product: View {
                         Spacer()
                     }.foregroundColor(globals.cardLight)
                 }
+     
                 AsyncImage(url: URL(string: productImage), scale: 3) { phase in
                     if let image = phase.image {
                         image
@@ -62,7 +64,7 @@ struct Product: View {
             
         }.padding()
         VStack {
-            Text("\(price) kr")
+            Text(vm.priceStringFromInt(price) ?? "No price available")
                 .font(.system(size: 22, weight: .bold, design: .default))
                 .foregroundColor(.orange)
             Divider()
@@ -70,8 +72,6 @@ struct Product: View {
         }.frame(width: 300).padding()
     }
 }
-
-
 
 
 struct Product_Previews: PreviewProvider {

@@ -8,12 +8,9 @@
 import Foundation
 
     class ProductViewModel: ObservableObject {
-    
-        //        private var truckID: String {
-        //            if let truckID = plannedTransport.truckID {
-        //                return truckID
-        //            } else {
-        //                return "-"
-        //            }
+
+        func priceStringFromInt(_ integer: Int) -> String? {
+            return String(integer) + " " + "kr"
+        }
 }
 

@@ -10,13 +10,15 @@ import SwiftUI
 struct ProductCard: View {
     @StateObject private var favorites = Favorites()
     @StateObject private var globals = Globals()
+    @StateObject private var vm = ProductViewModel()
     
     var productImage: String
     var price: Int
-    var description: String
-    var location: String
+    var description: String?
+    var location: String?
+    var shippingOption: String?
     var adType: String
-    
+   
     var body: some View {
         HStack(alignment: .center) {
             AsyncImage(url: URL(string: productImage), scale: 3) { phase in
@@ -27,22 +29,21 @@ struct ProductCard: View {
                         .clipShape(Circle())
                         .frame(width: 120)
                         .padding([.top, .bottom, .leading], 20)
-
+                    
                 }
                 else if phase.error != nil {
                     Image(systemName: "mustache").font(.system(size: 60)).foregroundColor(globals.cardLight)
-                                    .frame(width: 120)
-                                    .padding([.top, .bottom, .leading], 20)
+                        .frame(width: 120)
+                        .padding([.top, .bottom, .leading], 20)
                 }
             }
             
             VStack(alignment: .leading) {
-
-                Text("\(price) kr")
+                Text(vm.priceStringFromInt(price) ?? "No price available")
                     .font(.system(size: 22, weight: .bold, design: .default))
                     .foregroundColor(.white)
                     .padding(.bottom, 1)
-                Text(description)
+                Text(description ?? "No description available")
                     .font(.system(size: 14, weight: .bold, design: .default))
                     .foregroundColor(.gray)
                     .lineLimit(2)
@@ -53,7 +54,7 @@ struct ProductCard: View {
                     } else {
                         Image(systemName: "location.circle").imageScale(.medium).foregroundColor(globals.cardLight)
                     }
-                    Text(location)
+                    Text(location ?? "No location available")
                         .font(.system(size: 14, weight: .bold, design: .default))
                         .foregroundColor(.white)
                         .lineLimit(1)
@@ -68,9 +69,3 @@ struct ProductCard: View {
         .padding(.all, 10)
     }
 }
-
-//struct ProductCard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProductCard(productImage: "bilde", price: 00, description: "description", location: "title", adType: "houses")
-//    }
-//}
