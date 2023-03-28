@@ -14,14 +14,29 @@ struct MainView: View {
     @StateObject var favorites = Favorites()
     @StateObject private var vm = MainViewModel()
     
-    private var filteredAdItems: [Item] {
-        if vm.searchText.isEmpty {
+    var filteredAdItems: [Item] {
+        
+        switch vm.selectedTab {
+        case .All:
+            if vm.searchText.isEmpty {
+                return repository.items
+            } else if !repository.items.description.isEmpty {
+                return repository.items.filter { $0.description!.localizedCaseInsensitiveContains(vm.searchText) }
+            }
             return repository.items
-        } else if !repository.items.description.isEmpty {
-            return repository.items.filter { $0.description!.localizedCaseInsensitiveContains(vm.searchText) }
+        case .Favorites:
+            return repository.items.filter { $0.adType.rawValue == "REALESTATE" }
         }
-        return repository.items
     }
+    
+    //    private var filteredAdItems: [Item] {
+    //        if vm.searchText.isEmpty {
+    //            return repository.items
+    //        } else if !repository.items.description.isEmpty {
+    //            return repository.items.filter { $0.description!.localizedCaseInsensitiveContains(vm.searchText) }
+    //        }
+    //        return repository.items
+    //    }
     
     var body: some View {
         Picker("", selection: $vm.selectedTab) {
@@ -29,18 +44,24 @@ struct MainView: View {
                 Text(option.rawValue)
             }
         }.pickerStyle(.segmented).searchable(text: $vm.searchText, prompt: "Ads for dads search")
-        ScrollView {
-            switch vm.selectedTab {
-            case .All:
-                adsList
-            case .Favorites:
-                if favorites.ads.count == 0 {
-                    EmptyView().environmentObject(globals)
-                } else {
-                    favsList
-                }
+        //ScrollView {
+        List {
+            ForEach(filteredAdItems, id: \.id) { item in
+                Text(item.description ?? "nothing")
+                Text(item.location ?? "nothing")
             }
-        }.refreshable { await repository.loadData() }
+            //}
+            //            switch vm.selectedTab {
+            //            case .All:
+            //                adsList
+            //            case .Favorites:
+            //                if favorites.ads.count == 0 {
+            //                    EmptyView().environmentObject(globals)
+            //                } else {
+            //                    favsList
+            //                }
+        }
+        //}.refreshable { await repository.loadData() }
     }
     
     // MARK: - List of all ads
