@@ -15,6 +15,6 @@ final class MainViewModel: ObservableObject {
     
     enum Tabs : String, CaseIterable {
         case All = "Everything"
-        case Favorites = "Favorites"
+        case REALESTATE = "Realestate"
     }
 }
